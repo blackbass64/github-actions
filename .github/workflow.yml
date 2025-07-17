@@ -1,0 +1,24 @@
+name: Simulate Two Jobs Based on Input
+
+on:
+  workflow_dispatch:
+    inputs:
+      job_to_run:
+        description: 'Choose which job to run (job1, job2, or both)'
+        required: true
+        default: 'both'
+
+jobs:
+  job1:
+    if: ${{ github.event.inputs.job_to_run == 'job1' || github.event.inputs.job_to_run == 'both' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Job 1
+        run: echo "Executing Job 1"
+
+  job2:
+    if: ${{ github.event.inputs.job_to_run == 'job2' || github.event.inputs.job_to_run == 'both' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Job 2
+        run: echo "Executing Job 2"
