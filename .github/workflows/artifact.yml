@@ -1,0 +1,44 @@
+name: Artifact Polling Between Jobs
+
+on:
+  workflow_dispatch:
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Do work in Job 1
+        run: |
+          echo "Job 1 is running..."
+          sleep 5
+          echo "Job 1 done!"
+
+      - name: Save artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: job1-artifact
+          path: ./artifact.txt
+
+      - name: Create artifact file
+        run: echo "This is job1's artifact" > artifact.txt
+
+  job2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Poll for artifact availability
+        run: |
+          echo "Polling for job1-artifact..."
+          ATTEMPTS=10
+          for i in $(seq 1 $ATTEMPTS); do
+            echo "Attempt $i..."
+            # Try to download the artifact using the GitHub CLI or REST API
+            # (You need to have github CLI installed or use curl and token)
+            # For simplicity, here we simulate the polling wait
+            sleep 5
+            # Break early for demo purposes (replace with actual check)
+            echo "Assuming artifact available"
+            break
+          done
+
+      - name: Continue after artifact detected
+        run: echo "Job 2 continues after artifact is available."
