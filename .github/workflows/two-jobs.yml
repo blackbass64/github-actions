@@ -1,0 +1,19 @@
+name: Simulate Two Jobs Without Input
+
+on:
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  job1:
+    name: Simulated Job 1
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo from Job 1
+        run: echo "This is Job 1"
+
+  job2:
+    name: Simulated Job 2
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo from Job 2
+        run: echo "This is Job 2"
